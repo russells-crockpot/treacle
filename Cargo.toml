@@ -1,0 +1,14 @@
+[package]
+name = "treacle"
+version = "0.1.0"
+authors = ["Brendan McGloin <stmonkeydoom@gmail.com>"]
+edition = "2018"
+license = "MIT"
+
+
+[dependencies]
+anyhow = "1.0.38"
+log = "0.4.14"
+pretty_env_logger = "0.4.0"
+serde = "1.0.123"
+thiserror = "1.0.23"
