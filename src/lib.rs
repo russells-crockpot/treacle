@@ -2,8 +2,8 @@
 
 mod error;
 pub mod learning;
-mod tree;
+pub(crate) mod tree;
 
-pub use error::Error;
+pub use error::{Error, Result};
 
-pub use tree::{nodes, Decision, Node, Tree};
+pub use tree::*;
