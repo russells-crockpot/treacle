@@ -222,7 +222,27 @@ where
     }
 }
 
+impl<U, K, V> Container<U> for &BTreeMap<K, V>
+where
+    K: Borrow<U> + Ord,
+    U: Ord,
+{
+    fn contains(&self, value: &U) -> bool {
+        self.contains_key(value)
+    }
+}
+
 impl<U, V> Container<U> for BTreeSet<V>
+where
+    V: Borrow<U> + Ord,
+    U: Ord,
+{
+    fn contains(&self, value: &U) -> bool {
+        BTreeSet::contains(self, value)
+    }
+}
+
+impl<U, V> Container<U> for &BTreeSet<V>
 where
     V: Borrow<U> + Ord,
     U: Ord,
@@ -239,6 +259,26 @@ where
 {
     fn contains(&self, value: &U) -> bool {
         self.contains_key(value)
+    }
+}
+
+impl<U, K, V> Container<U> for &HashMap<K, V>
+where
+    K: Borrow<U> + Hash + Eq,
+    U: Hash + Eq,
+{
+    fn contains(&self, value: &U) -> bool {
+        self.contains_key(value)
+    }
+}
+
+impl<U, V> Container<U> for &HashSet<V>
+where
+    V: Borrow<U> + Hash + Eq,
+    U: Hash + Eq,
+{
+    fn contains(&self, value: &U) -> bool {
+        HashSet::contains(self, value)
     }
 }
 
@@ -261,6 +301,15 @@ where
     }
 }
 
+impl<U> Container<U> for &LinkedList<U>
+where
+    U: PartialEq<U>,
+{
+    fn contains(&self, value: &U) -> bool {
+        LinkedList::contains(self, value)
+    }
+}
+
 impl<U> Container<U> for VecDeque<U>
 where
     U: PartialEq<U>,
@@ -270,7 +319,25 @@ where
     }
 }
 
+impl<U> Container<U> for &VecDeque<U>
+where
+    U: PartialEq<U>,
+{
+    fn contains(&self, value: &U) -> bool {
+        VecDeque::contains(self, value)
+    }
+}
+
 impl<U> Container<U> for [U]
+where
+    U: PartialEq<U>,
+{
+    fn contains(&self, value: &U) -> bool {
+        <[U]>::contains(self, value)
+    }
+}
+
+impl<U> Container<U> for &[U]
 where
     U: PartialEq<U>,
 {
